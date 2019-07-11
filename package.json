@@ -1,0 +1,23 @@
+{
+  "name": "species-lookup",
+  "version": "1.0.0",
+  "description": "A mapping interface for amphibian data",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/birbjam/species-lookup.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/birbjam/species-lookup/issues"
+  },
+  "homepage": "https://github.com/birbjam/species-lookup#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
