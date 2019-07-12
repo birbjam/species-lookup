@@ -1,4 +1,5 @@
 body {
+<<<<<<< HEAD
     height: 100%;
     width: 100%;
 }
@@ -23,3 +24,12 @@ body {
     width: 100%;
     text-align: center;
 }
+=======
+            padding: 0;
+            margin: 0;
+}
+html, body, #mapid {
+            height: 100%;
+            width: 100%;
+}
+>>>>>>> 60001e4a98de3e3f0581d56c4caf19c470a4374d
