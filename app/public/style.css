@@ -1,30 +1,4 @@
 body {
-<<<<<<< HEAD
-    height: 100%;
-    width: 100%;
-}
-
-#mapid { 
-    height: 600px; 
-    width: 100%;
-}
-
-#header {
-    margin: 10px;
-    padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    width: 100%;
-    text-align: center;
-}
-
-#footer {
-    margin: 10px;
-    padding: 10px;
-    font-family: Arial, Helvetica, sans-serif;
-    width: 100%;
-    text-align: center;
-}
-=======
             padding: 0;
             margin: 0;
 }
@@ -32,4 +6,3 @@ html, body, #mapid {
             height: 100%;
             width: 100%;
 }
->>>>>>> 60001e4a98de3e3f0581d56c4caf19c470a4374d
