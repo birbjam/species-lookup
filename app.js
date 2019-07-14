@@ -3,11 +3,11 @@ var L = require('leaflet')
 
 // Initialize the map
 var map = L.map('map', {
-  scrollWheelZoom: false
+  scrollWheelZoom: true
 })
 
 // Set the position and zoom level of the map
-map.setView([47.70, 13.35], 7)
+map.setView([39.724578563018255, -123.61895787374944], 11);
 
 // Initialize the base layer
 var osm_mapnik = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
