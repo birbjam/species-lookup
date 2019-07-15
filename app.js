@@ -29,7 +29,12 @@ fetch(queryURL, {
 })
   .then(result => result.json())
   .then(response => {
-    document.querySelector('.data').innerText = `Class: ${response.species[0].class}`
+    document.querySelector(".data").innerText = `
+    Class: ${response.species[0].class}
+    Family: ${response.species[0].family}
+    Order: ${response.species[0].order}
+    Scientific Name: ${response.species[0].scientific_name}
+    `
   })
 
 // Save this for topo map display
