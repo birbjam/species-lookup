@@ -22,14 +22,14 @@ var popup = L.marker([39.724578563018255, -123.61895787374944])
 
 // Fetching the data
 var queryURL =
-  'https://specieslookup.berkeley.edu/search_json/-123.61895787374944,39.724578563018255';
+  'https://specieslookup.berkeley.edu/search_json/-123.61895787374944,39.724578563018255'
 
 fetch(queryURL, {
   method: 'GET'
 })
   .then(result => result.json())
   .then(response => {
-    document.querySelector(".data").innerText = `
+    document.querySelector('.data').innerText = `
     Class: ${response.species[0].class}
     Family: ${response.species[0].family}
     Order: ${response.species[0].order}
