@@ -15,17 +15,24 @@ var osm_mapnik = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   attribution: '&copy; OSM Mapnik <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map)
 
-L.marker([39.724578563018255, -123.61895787374944])
+// Add marker with a popup.
+var popup = L.marker([39.724578563018255, -123.61895787374944])
   .addTo(map)
-  .bindPopup('Stuff will go here')
+  .bindPopup('<p class="data"></p>')
 
-// var L = require('leaflet');
+// Fetching the data
+var queryURL =
+  'https://specieslookup.berkeley.edu/search_json/-123.61895787374944,39.724578563018255';
 
-// var mymap = L.map('mapid').setView(
-//   [39.724578563018255, -123.61895787374944],
-//   11
-// )
+fetch(queryURL, {
+  method: 'GET'
+})
+  .then(result => result.json())
+  .then(response => {
+    document.querySelector('.data').innerText = `Class: ${response.species[0].class}`
+  })
 
+// Save this for topo map display
 // var OpenTopoMap = L.tileLayer(
 //   'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
 //   {
