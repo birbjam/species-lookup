@@ -1,41 +1,41 @@
-// Initialize leaflet.js
-var L = require('leaflet')
-
 // Initialize the map
-var map = L.map('map', {
-  scrollWheelZoom: true
-})
+var map = L.map('map').setView([36.724, -102.618], 5);
+var infoMarker = L.marker(map.getCenter());
+var queryURLRoot = 'https://specieslookup.berkeley.edu/search_json/';
 
-// Set the position and zoom level of the map
-map.setView([39.724578563018255, -123.61895787374944], 11)
+// Initialize tile Layers
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+    maxZoom: 18
+}).addTo(map);
 
-// Initialize the base layer
-var osm_mapnik = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; OSM Mapnik <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map)
+map.on('click', addMarker);
 
-// Add marker with a popup.
-var popup = L.marker([39.724578563018255, -123.61895787374944])
-  .addTo(map)
-  .bindPopup('<p class="data"></p>')
+// When map is clicked add a marker to it
+function addMarker(e){
+    infoMarker.setLatLng(e.latlng).addTo(map);
 
-// Fetching the data
-var queryURL =
-  'https://specieslookup.berkeley.edu/search_json/-123.61895787374944,39.724578563018255'
+    // Status loading message
+    infoMarker.bindPopup('Looking for species. Please Wait ...');
+    infoMarker.openPopup();
 
-fetch(queryURL, {
-  method: 'GET'
-})
-  .then(result => result.json())
-  .then(response => {
-    document.querySelector('.data').innerText = `
-    Class: ${response.species[0].class}
-    Family: ${response.species[0].family}
-    Order: ${response.species[0].order}
-    Scientific Name: ${response.species[0].scientific_name}
-    `
-  })
+    // Construct the URL to query by appending the lat/lng of the marker location that was clicked
+    queryURL = queryURLRoot + e.latlng.lng + "," + e.latlng.lat
+
+    $.getJSON( queryURL, function( data ) {
+	var htmlText = 'Species Lookup Results:';
+	$.each( data.species, function( key, val ) {
+	    htmlText = htmlText + '<li><a href="' + val.url+' target=_blank">' + val.scientific_name +'</a></li>';
+	});
+
+	// Update the marker text
+	infoMarker.bindPopup(htmlText);
+	infoMarker.updatePopup();
+
+    });
+
+}
+
 
 // Save this for topo map display
 // var OpenTopoMap = L.tileLayer(
