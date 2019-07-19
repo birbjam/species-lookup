@@ -1,17 +1,45 @@
 // Opens the map at user's current location
 navigator.geolocation.getCurrentPosition(function (location) {
-  // Sets the map to users current location
   var latlng = new L.LatLng(
     location.coords.latitude,
     location.coords.longitude
   )
 
+  // Satellite map layer
+  var satellite = L.tileLayer(
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    {
+      attribution:
+      'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    }
+  )
+
+  // Topo map layer
+  var topo = L.tileLayer(
+    'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
+    {
+      maxZoom: 17,
+      attribution:
+        'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+    }
+  )
+
   // Initializes map
-  var map = L.map('map').setView(latlng, 13)
+  var map = L.map('map', {
+    layers: [satellite, topo]
+  }).setView(latlng, 13)
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
     maxZoom: 18
   }).addTo(map)
+
+  var baseMaps = {
+    'Default Map': map,
+    'Topo': topo,
+    'Satellite': satellite
+  }
+
+  L.control.layers(baseMaps).addTo(map)
 
   // Optional: adds a marker to current location
   // var marker = L.marker(latlng).addTo(map)
@@ -53,7 +81,7 @@ navigator.geolocation.getCurrentPosition(function (location) {
 })
 
 // Save this for topo map display
-// var OpenTopoMap = L.tileLayer(
+// var topo = L.tileLayer(
 //   'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
 //   {
 //     maxZoom: 17,
@@ -61,3 +89,12 @@ navigator.geolocation.getCurrentPosition(function (location) {
 //         'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
 //   }
 // ).addTo(map)
+
+// Satellite map display
+// var satellite = L.tileLayer(
+//   "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+//   {
+//     attribution:
+//       "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community"
+//   }
+// );
