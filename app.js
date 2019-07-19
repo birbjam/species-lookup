@@ -65,12 +65,12 @@ navigator.geolocation.getCurrentPosition(function (location) {
       var htmlText = 'Species Lookup Results:'
       $.each(data.species, function (key, val) {
         htmlText =
-        htmlText +
-        '<li><a href="' +
-        val.url +
-        ' target=_blank">' +
-        val.scientific_name +
-        '</a></li>'
+          htmlText +
+          '<li><a href="' +
+          val.url +
+          '" target=_blank>' +
+          val.scientific_name +
+          '</a></li>';
       })
 
       // Update the marker text
